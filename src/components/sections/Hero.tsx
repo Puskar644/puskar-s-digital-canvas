@@ -1,6 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { MagneticButton } from "./MagneticButton";
+import { MagneticButton } from "../MagneticButton";
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
