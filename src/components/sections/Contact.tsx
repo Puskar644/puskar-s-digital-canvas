@@ -1,17 +1,33 @@
 import { useState, type FormEvent } from "react";
 import { Reveal } from "../Reveal";
-import { Mail, MapPin, ArrowUpRight } from "lucide-react";
+import { Mail, MapPin, ArrowUpRight, Check, Loader2 } from "lucide-react";
 
 export function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
-  const submit = (e: FormEvent<HTMLFormElement>) => {
+  const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
-    const subject = encodeURIComponent(`Portfolio inquiry — ${data.get("name")}`);
-    const body = encodeURIComponent(`${data.get("message")}\n\n— ${data.get("name")} (${data.get("email")})`);
-    window.location.href = `mailto:puskarthapamagar29@gmail.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const data = new FormData(form);
+
+    try {
+      const res = await fetch("https://formspree.io/f/mrbnoegk", {
+        method: "POST",
+        body: data,
+        headers: { Accept: "application/json" },
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -64,11 +80,29 @@ export function Contact() {
 
             <button
               type="submit"
-              className="group mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-foreground py-4 text-sm font-medium text-background transition-transform hover:scale-[1.01] active:scale-[0.99]"
+              disabled={status === "sending" || status === "success"}
+              className="group mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-foreground py-4 text-sm font-medium text-background transition-transform hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
               data-hover
             >
-              {sent ? "Opening mail…" : "Send Message"}
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+              {status === "sending" && (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
+                  Sending…
+                </>
+              )}
+              {status === "success" && (
+                <>
+                  <Check className="h-4 w-4" strokeWidth={2} />
+                  Message sent
+                </>
+              )}
+              {status === "error" && "Something went wrong — try again"}
+              {status === "idle" && (
+                <>
+                  Send Message
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+                </>
+              )}
             </button>
           </form>
         </Reveal>
