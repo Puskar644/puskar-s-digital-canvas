@@ -1,11 +1,12 @@
 import { Reveal, StaggerGroup, StaggerItem } from "../Reveal";
 import { motion } from "framer-motion";
+import { ArrowUpRight, Github } from "lucide-react";
 
 const featured = [
   {
     no: "01",
     title: "Ecommerce Website",
-    desc: "A modern online storefront with cart interactions, product grid, and clean checkout flow.",
+    desc: "A responsive multi-page ecommerce experience with product grids, cart UI, and checkout flow.",
     tags: ["HTML", "CSS", "JavaScript"],
     live: "https://puskar29.github.io/ecommerce-website/",
     code: "https://github.com/puskar29/ecommerce-website",
@@ -13,7 +14,7 @@ const featured = [
   {
     no: "02",
     title: "Weather App",
-    desc: "Real-time weather lookup with location search, dynamic states and a minimal forecast UI.",
+    desc: "Real-time weather lookup with clean iconography, dynamic states, and a calm interface.",
     tags: ["JavaScript", "API", "CSS"],
     live: "https://puskar29.github.io/my-weather-app/",
     code: "https://github.com/puskar29/my-weather-app",
@@ -28,7 +29,7 @@ const featured = [
   },
   {
     no: "04",
-    title: "To-Do List App",
+    title: "To-do List App",
     desc: "A fast, distraction-free task manager with local persistence and crisp micro-interactions.",
     tags: ["JavaScript", "LocalStorage"],
     live: "https://puskar29.github.io/to-do-list-app/",
@@ -46,70 +47,81 @@ export function Projects() {
     <section id="projects" className="relative px-6 py-32 sm:py-40">
       <div className="mx-auto max-w-6xl">
         <Reveal>
-          <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">04 — Selected Work</p>
-          <h2 className="mb-16 font-display text-5xl font-semibold tracking-tight sm:text-7xl">
-            Things I've <span className="italic font-light text-muted-foreground">shipped.</span>
+          <p className="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+            <span className="h-px w-10 bg-foreground/40" />
+            Selected Work
+          </p>
+          <h2 className="font-display text-5xl font-semibold tracking-tight sm:text-7xl">
+            Featured <span className="italic font-light text-muted-foreground">projects.</span>
           </h2>
+          <p className="mt-6 max-w-md text-pretty text-muted-foreground">
+            A handful of things I've built while learning. Small in scope, but each one taught me something.
+          </p>
         </Reveal>
 
-        <StaggerGroup className="grid gap-6 md:grid-cols-2">
+        <StaggerGroup className="mt-16 grid gap-6 md:grid-cols-2">
           {featured.map((p) => (
             <StaggerItem key={p.no}>
               <motion.article
-                whileHover={{ y: -6 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="glass group relative flex h-full flex-col overflow-hidden rounded-3xl p-8 glow-ring transition-colors hover:bg-foreground/[0.04]"
+                whileHover={{ y: -4 }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-foreground/10 bg-foreground/[0.015] p-8 transition-colors hover:border-foreground/25 hover:bg-foreground/[0.035] sm:p-10"
                 data-hover
               >
-                <div className="pointer-events-none absolute -right-32 -top-32 h-64 w-64 rounded-full bg-foreground/10 opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute -right-40 -top-40 h-80 w-80 rounded-full bg-foreground/[0.06] opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-100" />
 
-                <div className="mb-8 flex items-start justify-between">
-                  <span className="font-mono text-xs text-muted-foreground">{p.no} / 04</span>
-                  <div className="flex gap-2">
-                    {p.tags.map((t) => (
-                      <span key={t} className="rounded-full border border-foreground/15 px-2.5 py-0.5 text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* faux preview */}
-                <div className="relative mb-8 aspect-[16/10] overflow-hidden rounded-xl border border-foreground/10 bg-gradient-to-br from-foreground/[0.06] to-transparent">
-                  <div className="grid-bg absolute inset-0 opacity-50" />
-                  <div className="absolute inset-x-6 bottom-6 font-display text-3xl font-semibold tracking-tight text-foreground/80">
-                    {p.title.split(" ")[0]}
-                    <div className="text-sm font-mono font-normal text-muted-foreground mt-1">{new URL(p.live).hostname}</div>
-                  </div>
-                  <div className="absolute right-4 top-4 flex gap-1.5">
-                    <div className="h-2 w-2 rounded-full bg-foreground/30" />
-                    <div className="h-2 w-2 rounded-full bg-foreground/20" />
-                    <div className="h-2 w-2 rounded-full bg-foreground/10" />
-                  </div>
-                </div>
-
-                <h3 className="font-display text-3xl font-semibold tracking-tight">{p.title}</h3>
-                <p className="mt-3 text-pretty text-muted-foreground">{p.desc}</p>
-
-                <div className="mt-auto flex items-center gap-3 pt-8">
+                <div className="mb-12 flex items-start justify-between">
+                  <span className="font-mono text-xs tracking-[0.3em] text-muted-foreground">
+                    {p.no.split("").join(" ")}
+                  </span>
                   <a
                     href={p.live}
                     target="_blank"
                     rel="noreferrer"
-                    className="group/btn inline-flex items-center gap-1.5 rounded-full bg-foreground px-5 py-2.5 text-xs font-medium text-background transition-transform hover:scale-[1.03]"
+                    aria-label={`Open ${p.title}`}
+                    className="text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
+                    data-hover
+                  >
+                    <ArrowUpRight className="h-5 w-5" strokeWidth={1.4} />
+                  </a>
+                </div>
+
+                <h3 className="font-display text-4xl font-semibold tracking-tight sm:text-5xl">
+                  {p.title}
+                </h3>
+                <p className="mt-5 max-w-md text-pretty text-muted-foreground">{p.desc}</p>
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full border border-foreground/15 px-3 py-1 text-[10px] font-mono uppercase tracking-wider text-muted-foreground"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto flex items-center gap-3 pt-10">
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="group/btn inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-xs font-medium text-background transition-transform hover:scale-[1.03]"
                     data-hover
                   >
                     Live Demo
-                    <span className="transition-transform group-hover/btn:translate-x-0.5">↗</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" strokeWidth={2} />
                   </a>
                   <a
                     href={p.code}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-foreground/20 px-5 py-2.5 text-xs font-medium text-foreground transition-colors hover:bg-foreground/5"
+                    className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-5 py-2.5 text-xs font-medium text-foreground transition-colors hover:bg-foreground/5"
                     data-hover
                   >
-                    GitHub
+                    <Github className="h-3.5 w-3.5" strokeWidth={1.8} />
+                    Code
                   </a>
                 </div>
               </motion.article>
