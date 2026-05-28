@@ -32,9 +32,9 @@ export function Loader() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative font-display text-[15vw] font-bold leading-none tracking-tight sm:text-[8vw]"
+            className="relative font-display text-[12vw] font-semibold leading-none tracking-tight sm:text-[5vw]"
           >
-            <span className="shimmer-text">PTM</span>
+            <span className="shimmer-text">Puskar</span>
           </motion.div>
           <div className="relative mt-10 flex w-64 items-center gap-4 font-mono text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
             <div className="relative h-px flex-1 overflow-hidden bg-foreground/10">
