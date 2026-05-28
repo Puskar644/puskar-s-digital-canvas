@@ -33,7 +33,7 @@ export function Hero() {
           Available for collaboration — 2026
         </motion.div>
 
-        <h1 className="font-display text-[16vw] font-bold leading-[0.85] tracking-tighter sm:text-[10vw] lg:text-[9rem]">
+        <h1 className="font-display text-[clamp(2.5rem,7.5vw,7rem)] font-bold leading-[0.9] tracking-tighter">
           <span className="block overflow-hidden">
             {title.map((c, i) => (
               <motion.span
