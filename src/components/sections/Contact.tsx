@@ -80,11 +80,29 @@ export function Contact() {
 
             <button
               type="submit"
-              className="group mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-foreground py-4 text-sm font-medium text-background transition-transform hover:scale-[1.01] active:scale-[0.99]"
+              disabled={status === "sending" || status === "success"}
+              className="group mt-7 flex w-full items-center justify-center gap-2 rounded-full bg-foreground py-4 text-sm font-medium text-background transition-transform hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
               data-hover
             >
-              {sent ? "Opening mail…" : "Send Message"}
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+              {status === "sending" && (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
+                  Sending…
+                </>
+              )}
+              {status === "success" && (
+                <>
+                  <Check className="h-4 w-4" strokeWidth={2} />
+                  Message sent
+                </>
+              )}
+              {status === "error" && "Something went wrong — try again"}
+              {status === "idle" && (
+                <>
+                  Send Message
+                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+                </>
+              )}
             </button>
           </form>
         </Reveal>
